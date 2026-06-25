@@ -45,7 +45,6 @@ AWS Confidential Computing
 - 多方安全資料共享（Confidential Data Sharing）
 
 
-##利用Nitro Enclaves來保護LLM推論<img width="1559" height="193" alt="image" src="https://github.com/user-attachments/assets/b578c063-6b1b-40c8-8d7c-c8d98e1b6cc6" />
-
+##利用Nitro Enclaves來保護LLM推論
 <img width="1307" height="680" alt="image" src="https://github.com/user-attachments/assets/a440a669-e2be-464d-8a51-3e57ccb55bb6" />
 
