@@ -3,7 +3,7 @@ AWS Confidential Computing
 
 # 什麼是機密運算（Confidential Computing）？
 
-機密運算（Confidential Computing）是一種透過硬體安全機制保護使用中資料（Data in Use)的技術，補足傳統加密只能保護靜態資料（Data at Rest）與傳輸中資料（Data in Transit）**的缺口。
+機密運算（Confidential Computing）是一種透過硬體安全機制保護使用中資料（Data in Use)的技術，補足傳統加密只能保護靜態資料（Data at Rest）與傳輸中資料（Data in Transit）的缺口。
 
 ## 為什麼需要機密運算？
 
