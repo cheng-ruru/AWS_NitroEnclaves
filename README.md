@@ -260,6 +260,8 @@ sudo systemctl enable --now docker
 
 <img width="2000" height="163" alt="image" src="https://github.com/user-attachments/assets/4c88197f-97a8-4383-b50e-5c28c43c3a42" />
 
+---
+
 ## 建構Enclave映像檔案
 
 ### 1. 從應用程式建構Docker範例映像：
