@@ -314,3 +314,75 @@ nitro-cli build-enclave --docker-uri hello:latest --output-file hello.eif
 
 > **補充：**
 > 建立 EIF 時，Nitro CLI 會同時產生 **Image Measurements（PCR0、PCR1、PCR2）** 與映像雜湊值（SHA384）。這些量測值可用於 **Attestation**，讓外部服務（例如 AWS KMS）驗證目前執行的 Enclave 是否為預期且未遭竄改的映像，建立硬體層級的信任（Hardware Root of Trust）。
+
+PCR(Platform Configuration Register)
+
+PCR0：EIF(Enclave Image File)的量測值  
+PCR1：Linux Kernel與啟動程式(Bootstrap)的量測值  
+PCR2：應用程式的量測值  
+PCR3：指派給Parent Instance的IAM Role的量測值  
+PCR4：Parent Instance ID的量測值  
+PCR8：Enclave映像檔簽署憑證的量測值  
+
+> **補充：**
+> PCR（Platform Configuration Register）是 Nitro Enclaves 用於 **Attestation（遠端驗證）** 的量測值（Measurements），用來證明目前執行的 Enclave 身分、映像內容及執行環境是否符合預期。外部服務（例如 AWS KMS）可依據這些 PCR 值決定是否信任該 Enclave。
+
+---
+
+## 執行Enclave
+
+### 1.指定CPU、RAM和Enclave映像檔路徑：
+
+```bash
+nitro-cli run-enclave --cpu-count 1 --memory 512 --enclave-cid 16 --eif-path hello.eif --debug-mode
+```
+<img width="1968" height="408" alt="image" src="https://github.com/user-attachments/assets/81c00f9e-5f29-4f19-8162-9e3f4bfc037a" />
+
+> **說明：**
+> 此指令會建立一個新的 Enclave，並指定使用 1 個 vCPU、512 MB 記憶體，以及先前建立的 `hello.eif` 作為執行映像。
+
+
+### 2.驗證Enclave正在執行：
+
+```bash
+nitro-cli describe-enclaves
+```
+<img width="1714" height="649" alt="image" src="https://github.com/user-attachments/assets/2c29b672-9f70-425a-bbd7-0b6b549ed09a" />
+
+> **說明：**
+> 可查看目前執行中的 Enclave 資訊，例如 Enclave ID、CID、CPU、記憶體配置及執行狀態。
+
+
+### 3.由於使用 `--debug-mode`，可查看Enclave的唯讀控制台輸出：
+
+```bash
+nitro-cli console --enclave-id EnclaveID
+```
+這些輸出是來自一個沒有網路、沒有磁碟、不能SSH的Enclave。
+
+<img width="2000" height="186" alt="image" src="https://github.com/user-attachments/assets/a2d4a48d-b5ca-4349-9713-36e797307022" />
+
+<img width="792" height="236" alt="image" src="https://github.com/user-attachments/assets/30e39b3e-a80b-454c-b73a-399d7bb2fb03" />
+
+
+> **補充：**
+> `--debug-mode` 僅建議於開發與測試環境使用，正式環境通常不會啟用，以避免洩漏除錯資訊。
+
+
+### 4.終止Enclave：
+
+```bash
+nitro-cli terminate-enclave --enclave-id EnclaveID
+```
+
+Enclave終止了代表：
+
+- 無殘留機密
+- 無磁碟殘留
+- 無 swap
+- 無 dump
+
+<img width="1940" height="281" alt="image" src="https://github.com/user-attachments/assets/97207716-c6cc-4f9b-9414-a0767b7b9b0f" />
+
+> **補充：**
+> Enclave 終止後，其記憶體內容會立即銷毀，不會留下任何持久化資料，因此每次啟動都是一個全新的執行環境。這也是 Nitro Enclaves 能夠保護敏感資料的重要安全特性。
