@@ -261,3 +261,59 @@ sudo systemctl enable --now docker
 ```
 
 <img width="2000" height="163" alt="image" src="https://github.com/user-attachments/assets/4c88197f-97a8-4383-b50e-5c28c43c3a42" />
+
+## 建構Enclave映像檔案
+
+### 1. 從應用程式建構Docker範例映像：
+
+```bash
+docker build /usr/share/nitro_enclaves/examples/hello -t hello
+```
+
+> **說明：**
+> Enclave不是直接吃程式碼，而是先將應用程式封裝成 Docker Image，再轉換成 Nitro Enclaves 可執行的 Enclave Image（EIF）。
+
+<img width="2000" height="399" alt="image" src="https://github.com/user-attachments/assets/95355ef3-681c-4b63-bbfb-0612e0178442" />
+
+### 2. 驗證已建構Docker映像：
+
+```bash
+docker image ls
+```
+
+Docker範例內容：hello
+
+```bash
+ls /usr/share/nitro_enclaves/examples/hello
+```
+<img width="1307" height="72" alt="image" src="https://github.com/user-attachments/assets/cd572eff-8c82-447b-a82a-30b4a11a6e61" />
+
+```bash
+cat /usr/share/nitro_enclaves/examples/hello/Dockerfile
+```
+<img width="1231" height="294" alt="image" src="https://github.com/user-attachments/assets/8b3418e9-282f-4d01-aff1-9c41a0ba3a01" />
+
+```bash
+cat /usr/share/nitro_enclaves/examples/hello/hello.sh
+```
+<img width="1225" height="324" alt="image" src="https://github.com/user-attachments/assets/430d37f3-d398-4b6c-afdf-91c5ee27e36c" />
+
+> **說明：**
+> 這個 Hello 範例包含 Dockerfile 與執行腳本（hello.sh），可以了解 Docker Image 是如何建立，以及 Enclave 啟動後會執行哪些內容。
+
+
+
+### 3. 將Docker映像轉換為Enclave映像檔案：
+
+```bash
+nitro-cli build-enclave --docker-uri hello:latest --output-file hello.eif
+```
+<img width="1780" height="407" alt="image" src="https://github.com/user-attachments/assets/caf815cc-1eac-493c-9257-4c38d61c05e4" />
+
+> **說明：**
+> 此步驟會將 Docker Image 轉換成 AWS Nitro Enclaves 可執行的 **EIF（Enclave Image File）**。
+
+產生Enclave的指紋，做硬體層級信任驗證（Attestation）。
+
+> **補充：**
+> 建立 EIF 時，Nitro CLI 會同時產生 **Image Measurements（PCR0、PCR1、PCR2）** 與映像雜湊值（SHA384）。這些量測值可用於 **Attestation**，讓外部服務（例如 AWS KMS）驗證目前執行的 Enclave 是否為預期且未遭竄改的映像，建立硬體層級的信任（Hardware Root of Trust）。
