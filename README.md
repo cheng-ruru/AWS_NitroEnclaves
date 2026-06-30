@@ -44,8 +44,7 @@ AWS Confidential Computing
 - 區塊鏈錢包與私鑰保護
 - 多方安全資料共享（Confidential Data Sharing）
 
-# AWS Nitro System <img width="372" height="178" alt="image" src="https://github.com/user-attachments/assets/afefb513-1d02-4d8e-9b58-8386b2eeb3c7" />
-
+# AWS Nitro System 
 
 AWS Nitro系統重新定義虛擬化架構，把管理與I/O處理功能從主機移到專用硬體設備，帶來更高效能、更安全的隔離環境，其核心如下：
 
@@ -300,7 +299,6 @@ cat /usr/share/nitro_enclaves/examples/hello/hello.sh
 
 > **說明：**
 > 這個 Hello 範例包含 Dockerfile 與執行腳本（hello.sh），可以了解 Docker Image 是如何建立，以及 Enclave 啟動後會執行哪些內容。
-
 
 
 ### 3. 將Docker映像轉換為Enclave映像檔案：
