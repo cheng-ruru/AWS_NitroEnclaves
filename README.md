@@ -178,7 +178,8 @@ sudo dnf install aws-nitro-enclaves-cli -y
 - 啟動／停止 Enclave
 - 查看 Enclave Console（Debug）
 
----
+<img width="2000" height="201" alt="image" src="https://github.com/user-attachments/assets/99caa534-9b0a-44ed-8458-290ec0b8342e" />
+
 
 ## 2. 安裝建置 Enclave 映像所需的開發工具（包含範例）
 
@@ -201,7 +202,8 @@ nitro-cli build-enclave --docker-uri ... --output-file app.eif
 - Helper 工具
 - Build 相依套件
 
----
+<img width="2000" height="377" alt="image" src="https://github.com/user-attachments/assets/bda28749-ef6b-482b-a850-885c0863da5b" />
+
 
 ## 3. 將使用者新增到 Nitro Enclaves 群組
 
@@ -209,19 +211,13 @@ nitro-cli build-enclave --docker-uri ... --output-file app.eif
 sudo usermod -aG ne username
 ```
 
----
-
 ## 4. 將使用者新增到 Docker 群組
 
 ```bash
 sudo usermod -aG docker username
 ```
 
----
-
 ## 5. 登出再重新登入
-
----
 
 ## 6. 驗證 Nitro CLI 是否正確安裝
 
@@ -229,7 +225,8 @@ sudo usermod -aG docker username
 nitro-cli --version
 ```
 
----
+<img width="1594" height="262" alt="image" src="https://github.com/user-attachments/assets/e017bac3-4321-4966-b2fc-1e21aa11f790" />
+
 
 ## 7. 調整 CPU 與 RAM 配置
 
@@ -242,7 +239,8 @@ sudo vi /etc/nitro_enclaves/allocator.yaml
 - 要從 Parent Instance 切多少 Memory 給 Enclave
 - 要從 Parent Instance 保留幾顆 vCPU 給 Enclave
 
----
+<img width="1476" height="437" alt="image" src="https://github.com/user-attachments/assets/ce4bb53e-2531-41ed-8d84-7099aef894bb" />
+
 
 ## 8. 執行命令分配配置檔案中指定的資源
 
@@ -255,10 +253,11 @@ sudo systemctl enable --now nitro-enclaves-allocator.service
 - `enable`：開機自動啟動
 - `--now`：立即啟動服務
 
----
 
 ## 9. 啟動 Docker 服務
 
 ```bash
 sudo systemctl enable --now docker
 ```
+
+<img width="2000" height="163" alt="image" src="https://github.com/user-attachments/assets/4c88197f-97a8-4383-b50e-5c28c43c3a42" />
