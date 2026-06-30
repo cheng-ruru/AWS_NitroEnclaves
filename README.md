@@ -45,6 +45,8 @@ AWS Confidential Computing
 - 多方安全資料共享（Confidential Data Sharing）
 
 # AWS Nitro System 
+<img width="372" height="178" alt="image" src="https://github.com/user-attachments/assets/94cecae8-0c32-4915-be25-1419a4fd117a" />
+
 
 AWS Nitro系統重新定義虛擬化架構，把管理與I/O處理功能從主機移到專用硬體設備，帶來更高效能、更安全的隔離環境，其核心如下：
 
@@ -76,8 +78,8 @@ AWS Nitro系統重新定義虛擬化架構，把管理與I/O處理功能從主�
 
 效能近似裸機（Bare Metal）。
 
-# AWS Nitro Enclaves <img width="361" height="178" alt="image" src="https://github.com/user-attachments/assets/1603c24e-1842-4f5e-a38b-5343c85cc351" />
-
+# AWS Nitro Enclaves
+<img width="361" height="178" alt="image" src="https://github.com/user-attachments/assets/1603c24e-1842-4f5e-a38b-5343c85cc351" />
 
 AWS Nitro Enclaves 是在 EC2 Instance 中切出更小的信任邊界（隔離執行環境）。
 
@@ -148,9 +150,6 @@ Enclave 內的資料和應用程式無法被 Parent Instance 的：
 ## Enclave 需求
 
 - Linux 作業系統
-
-##利用Nitro Enclaves來保護LLM推論
-<img width="1307" height="680" alt="image" src="https://github.com/user-attachments/assets/a440a669-e2be-464d-8a51-3e57ccb55bb6" />
 
 ## 如何使用 AWS Nitro Enclaves
 
