@@ -388,3 +388,13 @@ Enclave終止了代表：
 
 > **補充：**
 > Enclave 終止後，其記憶體內容會立即銷毀，不會留下任何持久化資料，因此每次啟動都是一個全新的執行環境。這也是 Nitro Enclaves 能夠保護敏感資料的重要安全特性。
+
+---
+## 補充資料：利用 Nitro Enclaves 保護 LLM 推論
+
+透過 **AWS Nitro Enclaves** 建立隔離的可信任執行環境（Trusted Execution Environment, TEE），讓 LLM 推論時所使用的敏感資料（如 Prompt、API Key、PII、企業機密資料）僅存在於 Enclave 記憶體中，不會暴露給 Parent Instance、作業系統或具有管理員權限的使用者。
+
+架構中，應用程式部署於 Parent Instance，並透過 **vsock** 與 Enclave 通訊；Enclave 負責執行敏感運算、解密及 LLM 推論，必要時再透過 **AWS KMS Attestation** 驗證 Enclave 身分後取得加密金鑰，建立端到端的可信任推論流程。
+
+> **架構圖：Nitro Enclaves 保護 LLM 推論**
+<img width="1185" height="536" alt="image" src="https://github.com/user-attachments/assets/94871bfe-a7fa-46a4-974f-cc913ac2950d" />
