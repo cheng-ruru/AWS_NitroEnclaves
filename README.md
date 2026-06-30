@@ -44,7 +44,221 @@ AWS Confidential Computing
 - 區塊鏈錢包與私鑰保護
 - 多方安全資料共享（Confidential Data Sharing）
 
+# AWS Nitro System <img width="372" height="178" alt="image" src="https://github.com/user-attachments/assets/afefb513-1d02-4d8e-9b58-8386b2eeb3c7" />
+
+
+AWS Nitro系統重新定義虛擬化架構，把管理與I/O處理功能從主機移到專用硬體設備，帶來更高效能、更安全的隔離環境，其核心如下：
+
+包括一系列專用硬體卡片，像是：
+- VPC
+- EBS
+- Instance Store
+- 加密
+- 安全監控等 I/O 功能
+
+減輕主機負擔並提升效能。
+
+## Nitro Security Chip
+負責硬體層級包括：
+- 安全啟動（Secure Boot）
+- Instance 隔離
+
+確保沒有人（包含 AWS 員工）能存取實體伺服器資料。
+
+## NitroTPM
+符合 TPM 2.0 規格，可在 EC2 Instance 提供硬體級別的 TPM 功能，用於：
+- 金鑰處理（建立、儲存與使用）
+- 完整性驗證等
+
+## Nitro Hypervisor
+輕量級 Hypervisor，只處理：
+- CPU
+- 記憶體
+
+效能近似裸機（Bare Metal）。
+
+# AWS Nitro Enclaves <img width="361" height="178" alt="image" src="https://github.com/user-attachments/assets/1603c24e-1842-4f5e-a38b-5343c85cc351" />
+
+
+AWS Nitro Enclaves 是在 EC2 Instance 中切出更小的信任邊界（隔離執行環境）。
+
+Enclave 是獨立的、強化的（Hardened）且高度受限的虛擬機器（Virtual Machine）。
+
+Parent Instance 僅能透過 **Secure Local Socket** 與 Enclave 溝通，其：
+- Process
+- Applications
+- Kernel
+- Users
+
+均無法直接存取 Enclave 內部的資料或記憶體。
+
+<img width="597" height="485" alt="image" src="https://github.com/user-attachments/assets/81864bb8-34f2-4915-a342-55038382d171" />
+
+
+## 可整合服務
+
+### AWS KMS（AWS Key Management Service）
+- 加解密
+- 金鑰生命週期管理
+
+### AWS Certificate Manager（ACM）
+- SSL/TLS 憑證管理
+
+### AWS CloudTrail
+- 追蹤所有使用者活動
+- 記錄 API 呼叫行為
+
+  ## Enclave 特性
+
+- 沒有持久性儲存（Persistent Storage）
+- 沒有互動式存取（Interactive Access）
+- 沒有外部網路連接（External Network Connectivity）
+- 無法透過 SSH 進入 Enclave
+
+Enclave 內的資料和應用程式無法被 Parent Instance 的：
+- Process
+- Users（包含 root 或管理員）
+- Kernel
+
+直接存取，只有授權的程式碼（Authorized Code）能在 Enclave 中執行。
+
+## 安全特性
+
+因此：
+
+- 秘密（Secrets）只會在 Enclave 內短暫存在
+- 即使 Parent Instance 取得 root 權限，也無法讀取 Enclave 的記憶體
+
+## 適用情境
+
+可以將**最敏感的那一段**工作抽離到 Enclave 中執行，例如：
+
+- 金鑰管理（Key Management）
+- PII 解密（Personally Identifiable Information）
+- 數位簽章（Digital Signature）
+- AI／LLM 推論（Inference）
+
+## Parent Instance 需求
+
+- 基於 Nitro 的 Instance
+- 具有至少 **4 個 vCPUs** 的 Intel 或 AMD 型 Instance
+- 具有至少 **2 個 vCPUs** 的 AWS Graviton 型 Instance
+- 並非支援所有 Instance，支援清單請參閱官方文件
+- Linux 或 Windows（2016 或更新版本）作業系統
+
+## Enclave 需求
+
+- Linux 作業系統
 
 ##利用Nitro Enclaves來保護LLM推論
 <img width="1307" height="680" alt="image" src="https://github.com/user-attachments/assets/a440a669-e2be-464d-8a51-3e57ccb55bb6" />
 
+## 如何使用 AWS Nitro Enclaves
+
+- 每個 Parent Instance 最多可建立 **4 個 Enclave**
+- Enclave 僅能與 Parent Instance 透過 **vsock** 通訊，Enclave 之間無法彼此通訊
+- Parent Instance 必須處於執行狀態，Enclave 才會執行
+- 使用 AWS Nitro Enclaves **無額外費用**
+
+<img width="1734" height="824" alt="image" src="https://github.com/user-attachments/assets/cf037acb-f94d-4e25-8704-479ed4039435" />
+
+<img width="1414" height="816" alt="image" src="https://github.com/user-attachments/assets/7c99bdab-6505-4cf9-92b2-6242bd4dc8e1" />
+
+# 在 Linux 安裝 Nitro Enclaves CLI
+
+## 1. 安裝 Nitro CLI
+
+```bash
+sudo dnf install aws-nitro-enclaves-cli -y
+```
+
+安裝 Nitro CLI，讓你可以執行：
+
+- 建置 EIF（Enclave Image File）
+- 啟動／停止 Enclave
+- 查看 Enclave Console（Debug）
+
+---
+
+## 2. 安裝建置 Enclave 映像所需的開發工具（包含範例）
+
+```bash
+sudo dnf install aws-nitro-enclaves-cli-devel -y
+```
+
+包含 EIF 建置所需的工具、範例與開發支援，可將 Docker Image 轉換為 EIF。
+
+例如：
+
+```bash
+nitro-cli build-enclave --docker-uri ... --output-file app.eif
+```
+
+包含：
+
+- EIF 建置工具
+- 範例程式
+- Helper 工具
+- Build 相依套件
+
+---
+
+## 3. 將使用者新增到 Nitro Enclaves 群組
+
+```bash
+sudo usermod -aG ne username
+```
+
+---
+
+## 4. 將使用者新增到 Docker 群組
+
+```bash
+sudo usermod -aG docker username
+```
+
+---
+
+## 5. 登出再重新登入
+
+---
+
+## 6. 驗證 Nitro CLI 是否正確安裝
+
+```bash
+nitro-cli --version
+```
+
+---
+
+## 7. 調整 CPU 與 RAM 配置
+
+```bash
+sudo vi /etc/nitro_enclaves/allocator.yaml
+```
+
+`allocator.yaml` 設定檔可決定：
+
+- 要從 Parent Instance 切多少 Memory 給 Enclave
+- 要從 Parent Instance 保留幾顆 vCPU 給 Enclave
+
+---
+
+## 8. 執行命令分配配置檔案中指定的資源
+
+```bash
+sudo systemctl enable --now nitro-enclaves-allocator.service
+```
+
+說明：
+
+- `enable`：開機自動啟動
+- `--now`：立即啟動服務
+
+---
+
+## 9. 啟動 Docker 服務
+
+```bash
+sudo systemctl enable --now docker
+```
