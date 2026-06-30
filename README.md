@@ -9,8 +9,8 @@ AWS Confidential Computing
 
 傳統加密可以保護：
 
-- 🔒 Data at Rest（靜態資料）
-- 🔒 Data in Transit（傳輸中資料）
+- Data at Rest（靜態資料）
+- Data in Transit（傳輸中資料）
 
 但當資料進入 CPU 或 Memory 進行運算時，通常會以明文（Plaintext）存在，因此可能面臨被竊取或窺探的風險。
 
