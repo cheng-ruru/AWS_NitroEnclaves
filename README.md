@@ -1,6 +1,9 @@
 # AWS_NitroEnclaves
 AWS Confidential Computing
 
+## 臺灣雲端大會演講簡報下載：AI與資安的完美結合-探索雲端機密運算的奧妙
+[AI與資安的完美結合-探索雲端機密運算的奧妙_林家瑋(Ray Lin)_202607.pdf](https://github.com/user-attachments/files/29534846/AI.-._.Ray.Lin._202607.pdf)
+
 # 什麼是機密運算（Confidential Computing）？
 
 機密運算（Confidential Computing）是一種透過硬體安全機制保護使用中資料（Data in Use)的技術，補足傳統加密只能保護靜態資料（Data at Rest）與傳輸中資料（Data in Transit）的缺口。
