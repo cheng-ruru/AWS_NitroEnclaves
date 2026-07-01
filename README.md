@@ -1,9 +1,6 @@
 # AWS_NitroEnclaves
 AWS Confidential Computing
 
-## 臺灣雲端大會演講簡報下載：AI與資安的完美結合-探索雲端機密運算的奧妙
-[AI與資安的完美結合-探索雲端機密運算的奧妙_林家瑋(Ray Lin)_202607.pdf](https://github.com/user-attachments/files/29534846/AI.-._.Ray.Lin._202607.pdf)
-
 # 什麼是機密運算（Confidential Computing）？
 
 機密運算（Confidential Computing）是一種透過硬體安全機制保護使用中資料（Data in Use)的技術，補足傳統加密只能保護靜態資料（Data at Rest）與傳輸中資料（Data in Transit）的缺口。
@@ -393,7 +390,7 @@ Enclave終止了代表：
 > Enclave 終止後，其記憶體內容會立即銷毀，不會留下任何持久化資料，因此每次啟動都是一個全新的執行環境。這也是 Nitro Enclaves 能夠保護敏感資料的重要安全特性。
 
 ---
-## 補充資料：利用 Nitro Enclaves 保護 LLM 推論
+### 補充資料：利用 Nitro Enclaves 保護 LLM 推論
 
 透過 **AWS Nitro Enclaves** 建立隔離的可信任執行環境（Trusted Execution Environment, TEE），讓 LLM 推論時所使用的敏感資料（如 Prompt、API Key、PII、企業機密資料）僅存在於 Enclave 記憶體中，不會暴露給 Parent Instance、作業系統或具有管理員權限的使用者。
 
@@ -401,3 +398,6 @@ Enclave終止了代表：
 
 > **架構圖：Nitro Enclaves 保護 LLM 推論**
 <img width="1185" height="536" alt="image" src="https://github.com/user-attachments/assets/94871bfe-a7fa-46a4-974f-cc913ac2950d" />
+
+### 參考資料：臺灣雲端大會:AI與資安的完美結合-探索雲端機密運算的奧妙
+[AI與資安的完美結合-探索雲端機密運算的奧妙_林家瑋(Ray Lin)_202607.pdf](https://github.com/user-attachments/files/29534846/AI.-._.Ray.Lin._202607.pdf)
