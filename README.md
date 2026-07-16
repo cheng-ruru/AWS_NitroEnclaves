@@ -401,3 +401,7 @@ Enclave終止了代表：
 
 ### 參考資料：臺灣雲端大會:AI與資安的完美結合-探索雲端機密運算的奧妙
 [AI與資安的完美結合-探索雲端機密運算的奧妙_林家瑋(Ray Lin)_202607.pdf](https://github.com/user-attachments/files/29534846/AI.-._.Ray.Lin._202607.pdf)
+
+### 參考資料：AWS Summit Taipei 如何透過AWS Nitro Enclaves安全機制來保護你的LLM推論
+[如何透過AWS Nitro Enclaves安全機制來保護你的LLM推論_林家瑋(Ray Lin)_202607.pdf](https://github.com/user-attachments/files/30073727/AWS.Nitro.Enclaves.LLM._.Ray.Lin._202607.pdf)
+
