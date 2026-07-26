@@ -405,3 +405,5 @@ Enclave終止了代表：
 ### 參考資料：AWS Summit Taipei 如何透過AWS Nitro Enclaves安全機制來保護你的LLM推論
 [如何透過AWS Nitro Enclaves安全機制來保護你的LLM推論_林家瑋(Ray Lin)_202607.pdf](https://github.com/user-attachments/files/30073727/AWS.Nitro.Enclaves.LLM._.Ray.Lin._202607.pdf)
 
+### 參考資料：UG 全球大講堂:如何透过亚马逊云科技Nitro Enclaves安全机制来保护你的LLM推论_林家玮(Ray Lin)_202607
+[如何透过亚马逊云科技Nitro Enclaves安全机制来保护你的LLM推论_林家玮(Ray Lin)_202607.pdf](https://github.com/user-attachments/files/30386997/Nitro.Enclaves.LLM._.Ray.Lin._202607.pdf)
